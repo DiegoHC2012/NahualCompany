@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,11 +12,11 @@ namespace GymGTPSoftware
     public class Conexion
     {
         private MySqlConnection conexion;
-        private string server = "localhost";
-        private string database = "SoftwareGPT_NewDB"; 
-        private string user = "root";
-        private string password = "";
-        private string cadenaConexion;
+        private readonly string server = "localhost";
+        private readonly string database = "SoftwareGPT_NewDB"; 
+        private readonly string user = "root";
+        private readonly string password = "";
+        private readonly string cadenaConexion;
 
         public Conexion() {
             cadenaConexion = $"Database={database}; DataSource={server}" +
@@ -36,13 +36,12 @@ namespace GymGTPSoftware
 
         //Obtener datos de una tabla
 
-        public DataTrabajador ObtenerDatosBD(string nombreUsuario, MySqlConnection conexion) //Para comprobar contrasena
+        public static DataTrabajador ObtenerDatosBD(string nombreUsuario, MySqlConnection conexion) //Para comprobar contrasena
         {
             /*
              Obtener los datos a partir de un nombre de usuario.
             Primero obtenemos el id que queremos conocer
              */
-            DataTrabajador trabajador;
             string query;
             int id = 1;
             // Utilizar una declaración parametrizada para evitar inyección SQL
@@ -69,7 +68,6 @@ namespace GymGTPSoftware
 
             using (MySqlCommand cmd = new MySqlCommand(query, conexion))
             {
-                //cmd.Parameters.AddWithValue("@NombreUsuario", nombreUsuario);
 
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
